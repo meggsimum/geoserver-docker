@@ -9,7 +9,7 @@ GeoServer is an open source server for sharing geospatial data. Designed for int
 By running
 
 ```shell
-docker run -p 18080:8080 meggsimum/geoserver:2.15.2
+docker run -p 18080:8080 meggsimum/geoserver:2.16.0
 ```
 
 you'll get a cleaned standard GeoServer, which can be accessed by http://localhost:18080/geoserver
