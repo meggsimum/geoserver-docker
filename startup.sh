@@ -32,5 +32,12 @@ if [ -d "$ADDITIONAL_LIBS_DIR" ]; then
     cp $ADDITIONAL_LIBS_DIR/*.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
 fi
 
+# ENABLE CORS
+if [ "$USE_CORS" == 1 ]; then
+  echo "Enabling CORS for GeoServer"
+  echo "Copy a modified web.xml to $CATALINA_HOME/geoserver/WEB-INF/";
+  cp /opt/web-cors-enabled.xml $CATALINA_HOME/webapps/geoserver/WEB-INF/web.xml
+fi
+
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run

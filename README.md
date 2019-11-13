@@ -1,6 +1,6 @@
 # GeoServer Docker
 
-A [GeoServer](http://geoserver.org/) Docker Image with predefined extensions.
+A [GeoServer](http://geoserver.org/) Docker Image with predefined extensions and CORS support.
 
 GeoServer is an open source server for sharing geospatial data. Designed for interoperability, it publishes data from any major spatial data source using open standards.
 
@@ -13,6 +13,23 @@ docker run -p 18080:8080 meggsimum/geoserver:2.16.0
 ```
 
 you'll get a cleaned standard GeoServer, which can be accessed by http://localhost:18080/geoserver
+
+
+## CORS SUPPORT
+
+This Docker Image allows to run GeoServer with CORS
+([Cross-Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) support.
+
+In order to enable CORS for your GeoServer container the environment variable
+`USE_CORS` can be used.
+
+By running
+
+```shell
+docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.16.0
+```
+
+you'll get a GeoServer with CORS enabled.
 
 ## Shipped Extensions
 

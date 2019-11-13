@@ -17,6 +17,7 @@ ENV EXTRA_JAVA_OPTS="-Xms256m -Xmx1g"
 ENV USE_VECTOR_TILES=0
 ENV USE_WPS=0
 ENV USE_IMG_MOSAIC=0
+ENV USE_CORS=0
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
 ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/p:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
@@ -106,6 +107,9 @@ RUN wget https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_V
 # cleanup
 RUN apk del curl && \
     rm -rf /tmp/* /var/cache/apk/*
+
+# add web.xml with CORS enabled
+COPY web-cors-enabled.xml /opt/web-cors-enabled.xml
 
 COPY startup.sh /opt/startup.sh
 RUN chmod +x /opt/startup.sh
