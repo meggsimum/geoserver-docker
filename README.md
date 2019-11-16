@@ -55,3 +55,7 @@ you'll get a GeoServer with installed and activated WPS and Vector Tiles extensi
 
 ## Credits
 This GeoServer Docker Image was heavily inspired by the one here: https://github.com/terrestris/docker-geoserver/ of the [terrestris](https://github.com/terrestris) organization. Thank you!
+
+Also a big thank you to the fabulous [GeoServer project](http://geoserver.org) and its maintainers / contributors. GeoServer is excellent, you rock!  
+
+
