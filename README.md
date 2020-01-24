@@ -9,13 +9,13 @@ GeoServer is an open source server for sharing geospatial data. Designed for int
 By running
 
 ```shell
-docker run -p 18080:8080 meggsimum/geoserver:2.16.0
+docker run -p 18080:8080 meggsimum/geoserver:2.16.2
 ```
 
-you'll get a cleaned standard GeoServer, which can be accessed by http://localhost:18080/geoserver
+you'll get a cleaned standard GeoServer (Version 2.16.2), which can be accessed by http://localhost:18080/geoserver
 
 
-## CORS SUPPORT
+## CORS Support
 
 This Docker Image allows to run GeoServer with CORS
 ([Cross-Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) support.
@@ -26,7 +26,7 @@ In order to enable CORS for your GeoServer container the environment variable
 By running
 
 ```shell
-docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.16.0
+docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.16.2
 ```
 
 you'll get a GeoServer with CORS enabled.
@@ -48,7 +48,7 @@ These extensions can be activated by the following environment variables:
 By running
 
 ```shell
-docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.15.2
+docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.16.2
 ```
 
 you'll get a GeoServer with installed and activated WPS and Vector Tiles extension.
