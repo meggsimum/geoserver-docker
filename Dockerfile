@@ -34,8 +34,11 @@ RUN apk -U upgrade --update && \
     apk add \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    gdal && \
-    rm -rf $CATALINA_HOME/webapps/*
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    gdal
+
+# clenaup webapps
+RUN rm -rf $CATALINA_HOME/webapps/*
 
 # install geoserver
 RUN curl -jkSL -o /tmp/geoserver.zip http://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSERVER_VERSION/geoserver-$GEOSERVER_VERSION-war.zip && \
