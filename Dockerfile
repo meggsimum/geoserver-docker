@@ -3,7 +3,9 @@ FROM terrestris/tomcat:8.5.37
 
 # The GS_VERSION argument could be used like this to overwrite the default:
 # docker build --build-arg GS_VERSION=2.15.2 -t meggsimum/geoserver:2.15.2 .
-ARG GS_VERSION=2.17.2
+ARG GS_VERSION=2.18.0
+# needed since imagemosaic extension is now a community module
+ARG GS_COMMUNITY_VERSION=2.18
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
 
@@ -97,12 +99,16 @@ RUN wget https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_V
     unzip ./$WPS_ZIP_NAME -d ./$WPS_NAME && \
     mv ./$WPS_NAME/*.jar $WPS_EXTENSION_PATH
 
-# IMAGE MOSAIC JDBC
+# IMAGE MOSAIC JDBC (now a community extension)
+# 2.18.-SNAPSHOT
+ARG GS_COMMUNITY_SNAPSHOT=$GS_COMMUNITY_VERSION-SNAPSHOT
+# 2.18.x
+ARG GS_COMMUNITY_BUILD_VERSION=$GS_COMMUNITY_VERSION.x
 ARG IMG_MOSAIC_NAME=imagemosaic-jdbc
-ARG IMG_MOSAIC_ZIP_NAME=geoserver-$GEOSERVER_VERSION-$IMG_MOSAIC_NAME-plugin.zip
+ARG IMG_MOSAIC_ZIP_NAME=geoserver-$GS_COMMUNITY_SNAPSHOT-$IMG_MOSAIC_NAME-plugin.zip
 ARG IMG_MOSAIC_EXTENSION_PATH=$EXTENSIONS_PATH$IMG_MOSAIC_NAME
 
-RUN wget https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION/extensions/$IMG_MOSAIC_ZIP_NAME && \
+RUN wget https://build.geoserver.org/geoserver/$GS_COMMUNITY_BUILD_VERSION/community-latest/$IMG_MOSAIC_ZIP_NAME && \
     mkdir -p $IMG_MOSAIC_EXTENSION_PATH && \
     unzip ./$IMG_MOSAIC_ZIP_NAME -d ./$IMG_MOSAIC_NAME && \
     mv ./$IMG_MOSAIC_NAME/*.jar $IMG_MOSAIC_EXTENSION_PATH
