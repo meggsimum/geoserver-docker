@@ -9,10 +9,20 @@ GeoServer is an open source server for sharing geospatial data. Designed for int
 By running
 
 ```shell
-docker run -p 18080:8080 meggsimum/geoserver:2.16.2
+docker run -p 18080:8080 meggsimum/geoserver:2.18.2
 ```
 
-you'll get a cleaned standard GeoServer (Version 2.16.2), which can be accessed by http://localhost:18080/geoserver
+you'll get a cleaned standard GeoServer (Version 2.18.2), which can be accessed by http://localhost:18080/geoserver
+
+### Supported ENV VARs
+
+  - `USE_CORS=1` (0/1)
+  - `USE_WPS=1` (0/1)
+  - `USE_VECTOR_TILES=1` (0/1)
+  - `USE_IMG_MOSAIC=1` (0/1)
+  - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
+
+For detailed information check the sections below.
 
 
 ## CORS Support
@@ -26,7 +36,7 @@ In order to enable CORS for your GeoServer container the environment variable
 By running
 
 ```shell
-docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.16.2
+docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.18.2
 ```
 
 you'll get a GeoServer with CORS enabled.
@@ -48,7 +58,7 @@ These extensions can be activated by the following environment variables:
 By running
 
 ```shell
-docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.16.2
+docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.18.2
 ```
 
 you'll get a GeoServer with installed and activated WPS and Vector Tiles extension.
@@ -65,7 +75,7 @@ GeoServer will be hosted under `/geoserver` as usual.
 By running
 
 ```shell
-docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.16.2
+docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.18.2
 ```
 
 you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
