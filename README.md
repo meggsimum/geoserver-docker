@@ -53,6 +53,23 @@ docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:
 
 you'll get a GeoServer with installed and activated WPS and Vector Tiles extension.
 
+## Change Deployment Path
+
+This Docker Image allows to deploy GeoServer under a given path instead of always being hosted under /geoserver.
+
+The path is defined in the environment variable `APP_PATH_PREFIX` in
+the form `foo#bar#`, which leads the application being
+hosted under `/foo/bar/geoserver/`. If the env var is not set the
+GeoServer will be hosted under `/geoserver` as usual.
+
+By running
+
+```shell
+docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.16.2
+```
+
+you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
+
 ## Build this Image
 
 ```shell
@@ -63,4 +80,4 @@ docker build -t {YOUR_TAG} .
 ## Credits
 This GeoServer Docker Image was heavily inspired by the one here: https://github.com/terrestris/docker-geoserver/ of the [terrestris](https://github.com/terrestris) organization. Thank you!
 
-Also a big thank you to the fabulous [GeoServer project](http://geoserver.org) and its maintainers / contributors. GeoServer is excellent, you rock!  
+Also a big thank you to the fabulous [GeoServer project](http://geoserver.org) and its maintainers / contributors. GeoServer is excellent, you rock!
