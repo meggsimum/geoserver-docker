@@ -3,9 +3,9 @@ FROM terrestris/tomcat:8.5.37
 
 # The GS_VERSION argument could be used like this to overwrite the default:
 # docker build --build-arg GS_VERSION=2.17.3 -t meggsimum/geoserver:2.17.3 .
-ARG GS_VERSION=2.19.0
+ARG GS_VERSION=2.18.3
 # needed since imagemosaic extension is now a community module
-ARG GS_COMMUNITY_VERSION=2.19
+ARG GS_COMMUNITY_VERSION=2.18.3
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
 
