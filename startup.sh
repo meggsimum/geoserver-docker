@@ -47,5 +47,8 @@ if [ "$USE_CORS" == 1 ]; then
   cp /opt/web-cors-enabled.xml $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/web.xml"
 fi
 
+# set credentials
+/bin/sh /opt/update_credentials.sh
+
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run
