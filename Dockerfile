@@ -123,6 +123,9 @@ COPY web-cors-enabled.xml /opt/web-cors-enabled.xml
 COPY startup.sh /opt/startup.sh
 RUN chmod +x /opt/startup.sh
 
+COPY update_credentials.sh /opt/update_credentials.sh
+RUN chmod +x /opt/update_credentials.sh
+
 ENTRYPOINT /opt/startup.sh
 
 WORKDIR /opt
