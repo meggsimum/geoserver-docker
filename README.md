@@ -21,6 +21,8 @@ you'll get a cleaned standard GeoServer (Version 2.18.2), which can be accessed 
   - `USE_VECTOR_TILES=1` (0/1)
   - `USE_IMG_MOSAIC=1` (0/1)
   - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
+  - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x)
+  - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x)
 
 For detailed information check the sections below.
 
@@ -79,6 +81,14 @@ docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.18.
 ```
 
 you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
+
+## Change Admin Credentials
+
+In order to have individual admin credentials in your running container the environment variables `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` can be set:
+
+```shell
+docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.18.2
+```
 
 ## Build this Image
 
