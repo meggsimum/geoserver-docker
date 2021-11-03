@@ -28,12 +28,6 @@ if [ "$USE_WPS" == 1 ]; then
   ls -la $WPS_PLUGIN_PATH
   cp $WPS_PLUGIN_PATH/*.jar $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/"
 fi
-# IMAGE MOSAIC JDBC
-if [ "$USE_IMG_MOSAIC" == 1 ]; then
-  echo "Copy Imagemosaic JDBC extension to our GeoServer lib directory";
-  ls -la $IMG_MOSAIC_PLUGIN_PATH
-  cp $IMG_MOSAIC_PLUGIN_PATH/*.jar $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/"
-fi
 
 # copy additional geoserver libs before starting the tomcat
 if [ -d "$ADDITIONAL_LIBS_DIR" ]; then

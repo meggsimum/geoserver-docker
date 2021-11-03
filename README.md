@@ -19,7 +19,6 @@ you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed 
   - `USE_CORS=1` (0/1)
   - `USE_WPS=1` (0/1)
   - `USE_VECTOR_TILES=1` (0/1)
-  - `USE_IMG_MOSAIC=1` (0/1)
   - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
   - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x)
   - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x)
@@ -49,13 +48,11 @@ This Docker Image comes with several extensions which are bundled in:
 
   - WPS
   - Vector Tiles
-  - Imagemosaic JDBC
 
 These extensions can be activated by the following environment variables:
 
   - `USE_WPS=1`
   - `USE_VECTOR_TILES=1`
-  - `USE_IMG_MOSAIC=1`
 
 By running
 
