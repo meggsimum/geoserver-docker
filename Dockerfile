@@ -84,7 +84,7 @@ ARG VT_NAME=vectortiles
 ARG VT_ZIP_NAME=geoserver-$GEOSERVER_VERSION-$VT_NAME-plugin.zip
 ARG VT_EXTENSION_PATH=$EXTENSIONS_PATH$VT_NAME
 
-RUN wget https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION/extensions/$VT_ZIP_NAME && \
+RUN wget --no-check-certificate https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION/extensions/$VT_ZIP_NAME && \
     mkdir -p $VT_EXTENSION_PATH && \
     unzip ./geoserver-$GEOSERVER_VERSION-vectortiles-plugin.zip -d ./$VT_NAME && \
     mv ./$VT_NAME/*.jar $VT_EXTENSION_PATH
@@ -94,7 +94,7 @@ ARG WPS_NAME=wps
 ARG WPS_ZIP_NAME=geoserver-$GEOSERVER_VERSION-$WPS_NAME-plugin.zip
 ARG WPS_EXTENSION_PATH=$EXTENSIONS_PATH$WPS_NAME
 
-RUN wget https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION/extensions/$WPS_ZIP_NAME && \
+RUN wget --no-check-certificate https://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION/extensions/$WPS_ZIP_NAME && \
     mkdir -p $WPS_EXTENSION_PATH && \
     unzip ./$WPS_ZIP_NAME -d ./$WPS_NAME && \
     mv ./$WPS_NAME/*.jar $WPS_EXTENSION_PATH
@@ -108,7 +108,7 @@ ARG IMG_MOSAIC_NAME=imagemosaic-jdbc
 ARG IMG_MOSAIC_ZIP_NAME=geoserver-$GS_COMMUNITY_SNAPSHOT-$IMG_MOSAIC_NAME-plugin.zip
 ARG IMG_MOSAIC_EXTENSION_PATH=$EXTENSIONS_PATH$IMG_MOSAIC_NAME
 
-RUN wget https://build.geoserver.org/geoserver/$GS_COMMUNITY_BUILD_VERSION/community-latest/$IMG_MOSAIC_ZIP_NAME && \
+RUN wget --no-check-certificate https://build.geoserver.org/geoserver/$GS_COMMUNITY_BUILD_VERSION/community-latest/$IMG_MOSAIC_ZIP_NAME && \
     mkdir -p $IMG_MOSAIC_EXTENSION_PATH && \
     unzip ./$IMG_MOSAIC_ZIP_NAME -d ./$IMG_MOSAIC_NAME && \
     mv ./$IMG_MOSAIC_NAME/*.jar $IMG_MOSAIC_EXTENSION_PATH
