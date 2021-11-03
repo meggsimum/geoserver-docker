@@ -9,10 +9,10 @@ GeoServer is an open source server for sharing geospatial data. Designed for int
 By running
 
 ```shell
-docker run -p 18080:8080 meggsimum/geoserver:2.18.2
+docker run -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
-you'll get a cleaned standard GeoServer (Version 2.18.2), which can be accessed by http://localhost:18080/geoserver
+you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed by http://localhost:18080/geoserver
 
 ### Supported ENV VARs
 
@@ -38,7 +38,7 @@ In order to enable CORS for your GeoServer container the environment variable
 By running
 
 ```shell
-docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.18.2
+docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
 you'll get a GeoServer with CORS enabled.
@@ -60,7 +60,7 @@ These extensions can be activated by the following environment variables:
 By running
 
 ```shell
-docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.18.2
+docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
 you'll get a GeoServer with installed and activated WPS and Vector Tiles extension.
@@ -77,7 +77,7 @@ GeoServer will be hosted under `/geoserver` as usual.
 By running
 
 ```shell
-docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.18.2
+docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
 you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
@@ -87,7 +87,7 @@ you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
 In order to have individual admin credentials in your running container the environment variables `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` can be set:
 
 ```shell
-docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.18.2
+docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
 ## Build this Image
