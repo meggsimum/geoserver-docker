@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI for release from git tag
 
 on:
   push:
@@ -7,15 +7,16 @@ on:
 
 jobs:
 
-  build:
+  build-and-push:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set ENV for tag
+    - name: Set ENV var for release version from tag
+      # refs/tags/v2.20.1 => 2.20.1
       run: echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-    - name: Echo tag
+    - name: Echo release version
       run: |
         echo $RELEASE_VERSION
         echo ${{ env.RELEASE_VERSION }}
