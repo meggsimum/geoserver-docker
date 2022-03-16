@@ -34,15 +34,6 @@ if [ -d "$ADDITIONAL_LIBS_DIR" ]; then
     cp $ADDITIONAL_LIBS_DIR/*.jar $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/"
 fi
 
-# No RCE Log4J Jar (see http://geoserver.org/announcements/2021/12/13/logj4-rce-statement.html)
-if [ "$USE_NORCE_LOG4J_JAR" == 1 ]; then
-  echo "Using the patched norce log4j 1.2.17 jar";
-  # remove malicious log4j-1.2.17.jar
-  rm $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/log4j-1.2.17.jar"
-  # download and install patched log4j jar file into lib folder
-  wget --no-check-certificate -P $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/" https://repo.osgeo.org/repository/geotools-releases/log4j/log4j/1.2.17.norce/log4j-1.2.17.norce.jar
-fi
-
 # ENABLE CORS
 if [ "$USE_CORS" == 1 ]; then
   echo "Enabling CORS for GeoServer"
