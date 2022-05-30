@@ -28,7 +28,7 @@ echo "USING ROLES XML ORIGINAL:" $ROLES_XML_ORIG
 # final users.xml file GeoServer data dir
 USERS_XML=${USERS_XML:-${GEOSERVER_DATA_DIR}security/usergroup/default/users.xml}
 echo "SETTING USERS XML:" $USERS_XML
-# finale roles.xml file GeoServer data dir
+# final roles.xml file GeoServer data dir
 ROLES_XML=${ROLES_XML:-${GEOSERVER_DATA_DIR}security/role/default/roles.xml}
 echo "SETTING ROLES XML:" . $ROLES_XML
 
