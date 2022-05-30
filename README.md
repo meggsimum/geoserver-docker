@@ -90,6 +90,14 @@ In order to have individual admin credentials in your running container the envi
 docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
+## Set Log Level
+
+The environment variable `GEOSERVER_LOG_LEVEL` defines the log level of GeoServer.
+
+```shell
+docker run -e GEOSERVER_LOG_LEVEL=PRODUCTION -p 18080:8080 meggsimum/geoserver:2.19.3
+```
+
 ## Build this Image
 
 ```shell
