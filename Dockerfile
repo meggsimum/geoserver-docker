@@ -21,6 +21,7 @@ ENV USE_WPS=0
 ENV USE_IMG_MOSAIC=0
 ENV USE_CORS=0
 ENV USE_NORCE_LOG4J_JAR=1
+ENV USE_STD_OUT_LOGGING=1
 ENV GEOSERVER_LOG_LEVEL=PRODUCTION
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html

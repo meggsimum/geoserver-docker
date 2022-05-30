@@ -44,11 +44,16 @@ fi
 # inspired by Kartoza GeoServer Docker image
 # https://github.com/kartoza/docker-geoserver/blob/f40770a5bbb4f29dc0d107a05aafb5f0da09164a/scripts/functions.sh#L269-L276
 
-echo "Applying logging level"
+echo "Applying logging level and usage of standard out of logs"
+
+STD_OUT_LOGGING_VALUE=false
+if [ "$USE_STD_OUT_LOGGING" == 1 ]; then
+STD_OUT_LOGGING_VALUE=true
+fi
 
 echo "<logging>
   <level>${GEOSERVER_LOG_LEVEL}_LOGGING.properties</level>
-  <stdOutLogging>true</stdOutLogging>
+  <stdOutLogging>${STD_OUT_LOGGING_VALUE}</stdOutLogging>
 </logging>" > "${GEOSERVER_DATA_DIR}"/logging.xml
 
 echo "Set log level to ${GEOSERVER_LOG_LEVEL}"
