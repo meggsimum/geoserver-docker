@@ -2,7 +2,8 @@
 
 # copy the predefined logging profiles to the GeoServer data directory
 DIR_LOGGING_PROFILES=${GEOSERVER_DATA_DIR}logs
-mv ${TMP_DIR_LOGGING_PROFILES} ${DIR_LOGGING_PROFILES}
+mkdir -p ${DIR_LOGGING_PROFILES}
+mv ${TMP_DIR_LOGGING_PROFILES}/* ${DIR_LOGGING_PROFILES}
 
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
