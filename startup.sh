@@ -47,8 +47,8 @@ fi
 echo "Applying logging level and usage of standard out of logs"
 
 STD_OUT_LOGGING_VALUE=false
-if [ "$USE_STD_OUT_LOGGING" == 1 ]; then
-STD_OUT_LOGGING_VALUE=true
+if [ "${USE_STD_OUT_LOGGING}" == 1 ]; then
+  STD_OUT_LOGGING_VALUE=true
 fi
 
 echo "<logging>
