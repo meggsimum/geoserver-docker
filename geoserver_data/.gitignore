@@ -3,5 +3,3 @@
 # Except this file and its README
 !.gitignore
 !README.md
-# ignore logs
-!/logs
