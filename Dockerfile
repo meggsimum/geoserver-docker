@@ -8,6 +8,7 @@ ARG GS_VERSION=2.19.6
 ARG GS_COMMUNITY_VERSION=2.19
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
+ARG LOGGING_PROFILES_PATH=./logging_profiles/
 
 # Environment variables
 ENV GEOSERVER_VERSION=$GS_VERSION
@@ -21,6 +22,8 @@ ENV USE_WPS=0
 ENV USE_IMG_MOSAIC=0
 ENV USE_CORS=0
 ENV USE_NORCE_LOG4J_JAR=1
+ENV USE_STD_OUT_LOGGING=1
+ENV GEOSERVER_LOG_LEVEL=PRODUCTION
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
 ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/p:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
@@ -113,6 +116,12 @@ RUN wget --no-check-certificate https://build.geoserver.org/geoserver/$GS_COMMUN
     mkdir -p $IMG_MOSAIC_EXTENSION_PATH && \
     unzip ./$IMG_MOSAIC_ZIP_NAME -d ./$IMG_MOSAIC_NAME && \
     mv ./$IMG_MOSAIC_NAME/*.jar $IMG_MOSAIC_EXTENSION_PATH
+
+# LOGGING
+ENV TMP_DIR_LOGGING_PROFILES=/temp_logging_profiles
+# copy prefined logging profiles to temporary directory
+# in the entry point script the logging profiles will be copied to the correct location
+COPY ${LOGGING_PROFILES_PATH} ${TMP_DIR_LOGGING_PROFILES}
 
 # cleanup
 RUN apk del curl && \
