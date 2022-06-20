@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# copy the predefined logging profiles to the GeoServer data directory
+DIR_LOGGING_PROFILES=${GEOSERVER_DATA_DIR}logs
+mkdir -p ${DIR_LOGGING_PROFILES}
+mv ${TMP_DIR_LOGGING_PROFILES}/* ${DIR_LOGGING_PROFILES}
+
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
 # path to default extensions stored in image
@@ -32,6 +37,32 @@ fi
 # copy additional geoserver libs before starting the tomcat
 if [ -d "$ADDITIONAL_LIBS_DIR" ]; then
     cp $ADDITIONAL_LIBS_DIR/*.jar $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/"
+fi
+
+# logging level
+# inspired by Kartoza GeoServer Docker image
+# https://github.com/kartoza/docker-geoserver/blob/f40770a5bbb4f29dc0d107a05aafb5f0da09164a/scripts/functions.sh#L269-L276
+echo "Applying logging level and usage of standard out of logs"
+
+STD_OUT_LOGGING_VALUE=false
+if [ "${USE_STD_OUT_LOGGING}" == 1 ]; then
+  STD_OUT_LOGGING_VALUE=true
+fi
+
+echo "<logging>
+  <level>${GEOSERVER_LOG_LEVEL}_LOGGING.properties</level>
+  <stdOutLogging>${STD_OUT_LOGGING_VALUE}</stdOutLogging>
+</logging>" > "${GEOSERVER_DATA_DIR}"/logging.xml
+
+echo "Set log level to ${GEOSERVER_LOG_LEVEL}"
+
+# No RCE Log4J Jar (see http://geoserver.org/announcements/2021/12/13/logj4-rce-statement.html)
+if [ "$USE_NORCE_LOG4J_JAR" == 1 ]; then
+  echo "Using the patched norce log4j 1.2.17 jar";
+  # remove malicious log4j-1.2.17.jar
+  rm $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/log4j-1.2.17.jar"
+  # download and install patched log4j jar file into lib folder
+  wget --no-check-certificate -P $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/" https://repo.osgeo.org/repository/geotools-releases/log4j/log4j/1.2.17.norce/log4j-1.2.17.norce.jar
 fi
 
 # ENABLE CORS
