@@ -1,5 +1,12 @@
 #!/bin/sh
 
+echo ${GEOSERVER_DATA_DIR}
+mv /tmp/logs ${GEOSERVER_DATA_DIR}logs
+
+echo ${GEOSERVER_DATA_DIR}
+echo XX-1-XX
+ls ${GEOSERVER_DATA_DIR}logs
+
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
 # path to default extensions stored in image
@@ -74,8 +81,14 @@ if [ "$USE_CORS" == 1 ]; then
   cp /opt/web-cors-enabled.xml $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/web.xml"
 fi
 
+echo XX-2-XX
+ls ${GEOSERVER_DATA_DIR}logs
+
 # set credentials
 /bin/sh /opt/update_credentials.sh
+
+echo XX-3-XX
+ls ${GEOSERVER_DATA_DIR}logs
 
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run
