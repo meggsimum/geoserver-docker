@@ -8,6 +8,7 @@ ARG GS_VERSION=2.19.6
 ARG GS_COMMUNITY_VERSION=2.19
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
+ARG LOGGING_PROFILES_PATH=./logging_profiles/
 
 # Environment variables
 ENV GEOSERVER_VERSION=$GS_VERSION
@@ -57,6 +58,7 @@ WORKDIR /tmp
 
 COPY $GS_DATA_PATH $GEOSERVER_DATA_DIR
 COPY $ADDITIONAL_LIBS_PATH $GEOSERVER_LIB_DIR
+COPY ${LOGGING_PROFILES_PATH} ${GEOSERVER_DATA_DIR}/logs
 
 # install java advanced imaging
 RUN wget https://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64.tar.gz && \
