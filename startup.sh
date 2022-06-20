@@ -48,7 +48,6 @@ fi
 # logging level
 # inspired by Kartoza GeoServer Docker image
 # https://github.com/kartoza/docker-geoserver/blob/f40770a5bbb4f29dc0d107a05aafb5f0da09164a/scripts/functions.sh#L269-L276
-
 echo "Applying logging level and usage of standard out of logs"
 
 STD_OUT_LOGGING_VALUE=false

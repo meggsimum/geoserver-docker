@@ -94,7 +94,6 @@ docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 180
 
 These logging profiles(log levels) are available out of the box: `DEFAULT`, `PRODUCTION`, `QUIET`, `VERBOSE`
 
-
 The environment variable `GEOSERVER_LOG_LEVEL` defines the log level of GeoServer.
 
 ```shell
@@ -106,7 +105,7 @@ It is possible to use custom logging profiles by adding them to the `logs` direc
 The environment variable `USE_STD_OUT_LOGGING` defines if logging should be done to standard out.
 
 ```shell
-# example how to deactive logging to standard out
+# example how to deactivate logging to standard out
 docker run -e USE_STD_OUT_LOGGING=0 -p 18080:8080 meggsimum/geoserver:2.19.3
 ```
 
