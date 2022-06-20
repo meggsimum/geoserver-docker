@@ -58,7 +58,6 @@ WORKDIR /tmp
 
 COPY $GS_DATA_PATH $GEOSERVER_DATA_DIR
 COPY $ADDITIONAL_LIBS_PATH $GEOSERVER_LIB_DIR
-# TODO: move copy from botton to here
 
 # install java advanced imaging
 RUN wget https://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64.tar.gz && \
@@ -118,15 +117,15 @@ RUN wget --no-check-certificate https://build.geoserver.org/geoserver/$GS_COMMUN
     unzip ./$IMG_MOSAIC_ZIP_NAME -d ./$IMG_MOSAIC_NAME && \
     mv ./$IMG_MOSAIC_NAME/*.jar $IMG_MOSAIC_EXTENSION_PATH
 
+# LOGGING
+ENV TMP_DIR_LOGGING_PROFILES=/temp_logging_profiles
+# copy prefined logging profiles to temporary directory
+# in the entry point script the logging profiles will be copied to the correct location
+COPY ${LOGGING_PROFILES_PATH} ${TMP_DIR_LOGGING_PROFILES}
+
 # cleanup
 RUN apk del curl && \
     rm -rf /tmp/* /var/cache/apk/*
-
-# TODO move up
-RUN echo 3
-# COPY ${LOGGING_PROFILES_PATH} ${GEOSERVER_DATA_DIR}/logs
-COPY ${LOGGING_PROFILES_PATH} /tmp/logs
-RUN ls /tmp/logs
 
 # add web.xml with CORS enabled
 COPY web-cors-enabled.xml /opt/web-cors-enabled.xml

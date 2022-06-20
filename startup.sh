@@ -1,11 +1,8 @@
 #!/bin/sh
 
-echo ${GEOSERVER_DATA_DIR}
-mv /tmp/logs ${GEOSERVER_DATA_DIR}logs
-
-echo ${GEOSERVER_DATA_DIR}
-echo XX-1-XX
-ls ${GEOSERVER_DATA_DIR}logs
+# copy the predefined logging profiles to the GeoServer data directory
+DIR_LOGGING_PROFILES=${GEOSERVER_DATA_DIR}logs
+mv ${TMP_DIR_LOGGING_PROFILES} ${DIR_LOGGING_PROFILES}
 
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
@@ -81,14 +78,8 @@ if [ "$USE_CORS" == 1 ]; then
   cp /opt/web-cors-enabled.xml $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/web.xml"
 fi
 
-echo XX-2-XX
-ls ${GEOSERVER_DATA_DIR}logs
-
 # set credentials
 /bin/sh /opt/update_credentials.sh
-
-echo XX-3-XX
-ls ${GEOSERVER_DATA_DIR}logs
 
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run
