@@ -25,6 +25,13 @@ you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed 
 
 For detailed information check the sections below.
 
+## Run with Volume
+
+The GeoServer data directory can be mounted on the host system in a custom directory using the `-v`/`--volume` flag:
+
+```shell
+docker run -p 8080:8080 -v /your/local/path/on/host/machine:/opt/geoserver_data meggsimum/geoserver:2.19.3
+```
 
 ## CORS Support
 
