@@ -89,22 +89,22 @@ docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 180
 
 ## Set Log Level and Standard Out Logging
 
-These logging profiles(log levels) are available out of the box: `DEFAULT`, `PRODUCTION`, `QUIET`, `VERBOSE`
-
-The environment variable `GEOSERVER_LOG_LEVEL` defines the log level of GeoServer.
+The environment variable `GEOSERVER_LOG_LEVEL` defines the log level of GeoServer. All predefined log levels of GeoServer are available. Default is `PRODUCTION`.
 
 ```shell
-docker run -e GEOSERVER_LOG_LEVEL=PRODUCTION -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e GEOSERVER_LOG_LEVEL=PRODUCTION -p 18080:8080 meggsimum/geoserver:2.21.0
 ```
 
-It is possible to use custom logging profiles by adding them to the `logs` directory within the GeoServer data directory. The filename must match the pattern `PETER_LOGGING.properties`. This profile would then be activated by setting the environment variable `GEOSERVER_LOG_LEVEL=PETER`.
+It is possible to use custom logging profiles by adding them to the `logs` directory within the GeoServer data directory. The filename must match the pattern `PETER_LOGGING.xml`. This profile would then be activated by setting the environment variable `GEOSERVER_LOG_LEVEL=PETER`.
 
 The environment variable `USE_STD_OUT_LOGGING` defines if logging should be done to standard out.
 
 ```shell
 # example how to deactivate logging to standard out
-docker run -e USE_STD_OUT_LOGGING=0 -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e USE_STD_OUT_LOGGING=0 -p 18080:8080 meggsimum/geoserver:2.21.0
 ```
+
+Note that starting from GeoServer version 2.21 the logging has been written completely new. If you update from older GeoServer versions there might be adaptations necessary. More information are available in the changelog of GeoServer: https://geoserver.org/announcements/2022/05/24/geoserver-2-21-0-released.html#log4j-2-upgrade
 
 ## Build this Image
 
