@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# copy the predefined logging profiles to the GeoServer data directory
-DIR_LOGGING_PROFILES=${GEOSERVER_DATA_DIR}logs
-mkdir -p ${DIR_LOGGING_PROFILES}
-mv ${TMP_DIR_LOGGING_PROFILES}/* ${DIR_LOGGING_PROFILES}
-
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
 # path to default extensions stored in image
@@ -50,7 +45,7 @@ if [ "${USE_STD_OUT_LOGGING}" == 1 ]; then
 fi
 
 echo "<logging>
-  <level>${GEOSERVER_LOG_LEVEL}_LOGGING.properties</level>
+  <level>${GEOSERVER_LOG_LEVEL}_LOGGING.xml</level>
   <stdOutLogging>${STD_OUT_LOGGING_VALUE}</stdOutLogging>
 </logging>" > "${GEOSERVER_DATA_DIR}"/logging.xml
 

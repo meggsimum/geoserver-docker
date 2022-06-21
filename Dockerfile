@@ -100,11 +100,6 @@ RUN wget --no-check-certificate https://sourceforge.net/projects/geoserver/files
     unzip ./$WPS_ZIP_NAME -d ./$WPS_NAME && \
     mv ./$WPS_NAME/*.jar $WPS_EXTENSION_PATH
 
-# LOGGING
-ENV TMP_DIR_LOGGING_PROFILES=/temp_logging_profiles
-# copy prefined logging profiles to temporary directory
-# in the entry point script the logging profiles will be copied to the correct location
-COPY ${LOGGING_PROFILES_PATH} ${TMP_DIR_LOGGING_PROFILES}
 
 # cleanup
 RUN apk del curl && \
