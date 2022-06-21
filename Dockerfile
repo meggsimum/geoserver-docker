@@ -6,7 +6,6 @@ FROM terrestris/tomcat:8.5.37
 ARG GS_VERSION=2.21.0
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
-ARG LOGGING_PROFILES_PATH=./logging_profiles/
 
 # Environment variables
 ENV GEOSERVER_VERSION=$GS_VERSION
@@ -18,7 +17,6 @@ ENV EXTRA_JAVA_OPTS="-Xms256m -Xmx1g"
 ENV USE_VECTOR_TILES=0
 ENV USE_WPS=0
 ENV USE_CORS=0
-ENV USE_NORCE_LOG4J_JAR=1
 ENV USE_STD_OUT_LOGGING=1
 ENV GEOSERVER_LOG_LEVEL=PRODUCTION
 
@@ -99,7 +97,6 @@ RUN wget --no-check-certificate https://sourceforge.net/projects/geoserver/files
     mkdir -p $WPS_EXTENSION_PATH && \
     unzip ./$WPS_ZIP_NAME -d ./$WPS_NAME && \
     mv ./$WPS_NAME/*.jar $WPS_EXTENSION_PATH
-
 
 # cleanup
 RUN apk del curl && \
