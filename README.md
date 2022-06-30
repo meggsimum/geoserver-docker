@@ -9,23 +9,30 @@ GeoServer is an open source server for sharing geospatial data. Designed for int
 By running
 
 ```shell
-docker run -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -p 8080:8080 meggsimum/geoserver:2.19.3
 ```
 
-you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed by http://localhost:18080/geoserver
+you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed by http://localhost:8080/geoserver
 
 ### Supported ENV VARs
 
-  - `USE_CORS=1` (0/1)
-  - `USE_WPS=1` (0/1)
-  - `USE_VECTOR_TILES=1` (0/1)
+  - `USE_CORS=1` (0/1) Default is `0`
+  - `USE_WPS=1` (0/1) Default is `0`
+  - `USE_VECTOR_TILES=1` (0/1) Default is `0`
   - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
   - `UPDATE_CREDENTIALS` (0/1) If the credentials shall be updated on startup (Default is `0`)
-  - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x)
-  - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x)
+  - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x) Default is `admin`
+  - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x) Default is `geoserver`
 
 For detailed information check the sections below.
 
+## Use a Volume
+
+The `geoserver_data` directory can be mounted as volume on the host system.
+
+```shell
+docker run -p 8080:8080 -v $(pwd)/geoserver_data:/opt/geoserver_data meggsimum/geoserver
+```
 
 ## CORS Support
 
@@ -38,7 +45,7 @@ In order to enable CORS for your GeoServer container the environment variable
 By running
 
 ```shell
-docker run -e USE_CORS=1 -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e USE_CORS=1 -p 8080:8080 meggsimum/geoserver
 ```
 
 you'll get a GeoServer with CORS enabled.
@@ -58,14 +65,14 @@ These extensions can be activated by the following environment variables:
 By running
 
 ```shell
-docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e USE_WPS=1 -e USE_VECTOR_TILES=1 -p 8080:8080 meggsimum/geoserver
 ```
 
 you'll get a GeoServer with installed and activated WPS and Vector Tiles extension.
 
 ## Change Deployment Path
 
-This Docker Image allows to deploy GeoServer under a given path instead of always being hosted under /geoserver.
+This Docker Image allows to deploy GeoServer under a given path instead of always being hosted under `/geoserver`.
 
 The path is defined in the environment variable `APP_PATH_PREFIX` in
 the form `foo#bar#`, which leads the application being
@@ -75,17 +82,17 @@ GeoServer will be hosted under `/geoserver` as usual.
 By running
 
 ```shell
-docker run -e APP_PATH_PREFIX="foo#bar#" -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e APP_PATH_PREFIX="foo#bar#" -p 8080:8080 meggsimum/geoserver
 ```
 
-you'll get the GeoServer deployed at http://localhost:18080/foo/bar/geoserver/.
+you'll get the GeoServer deployed at http://localhost:8080/foo/bar/geoserver/.
 
 ## Change Admin Credentials
 
 In order to have individual admin credentials in your running container the environment variables `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` can be set:
 
 ```shell
-docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.19.3
+docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 8080:8080 meggsimum/geoserver
 ```
 
 Setting `UPDATE_CREDENTIALS` to `0` does not update the credentials on startup. This is useful if an existing volume shall be mounted that already has credentials set up.
