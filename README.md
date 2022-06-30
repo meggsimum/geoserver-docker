@@ -20,6 +20,7 @@ you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed 
   - `USE_WPS=1` (0/1)
   - `USE_VECTOR_TILES=1` (0/1)
   - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
+  - `UPDATE_CREDENTIALS` (0/1) If the credentials shall be updated on startup (Default is `0`)
   - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x)
   - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x)
 
@@ -85,6 +86,12 @@ In order to have individual admin credentials in your running container the envi
 
 ```shell
 docker run -e GEOSERVER_ADMIN_USER=peter -e GEOSERVER_ADMIN_PASSWORD=abcd -p 18080:8080 meggsimum/geoserver:2.19.3
+```
+
+Setting `UPDATE_CREDENTIALS` to `0` does not update the credentials on startup. This is useful if an existing volume shall be mounted that already has credentials set up.
+
+```shell
+docker run -e UPDATE_CREDENTIALS=0 -v $(pwd)/geoserver_data:/opt/geoserver_data -p 8080:8080 meggsimum/geoserver:latest
 ```
 
 ## Build this Image
