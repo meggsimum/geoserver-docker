@@ -6,6 +6,7 @@ FROM terrestris/tomcat:8.5.37
 ARG GS_VERSION=2.20.5
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
+ARG LOGGING_PROFILES_PATH=./logging_profiles/
 
 # Environment variables
 ENV GEOSERVER_VERSION=$GS_VERSION
@@ -17,6 +18,8 @@ ENV EXTRA_JAVA_OPTS="-Xms256m -Xmx1g"
 ENV USE_VECTOR_TILES=0
 ENV USE_WPS=0
 ENV USE_CORS=0
+ENV USE_STD_OUT_LOGGING=1
+ENV GEOSERVER_LOG_LEVEL=PRODUCTION
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
 ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/p:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
@@ -95,6 +98,12 @@ RUN wget --no-check-certificate https://sourceforge.net/projects/geoserver/files
     mkdir -p $WPS_EXTENSION_PATH && \
     unzip ./$WPS_ZIP_NAME -d ./$WPS_NAME && \
     mv ./$WPS_NAME/*.jar $WPS_EXTENSION_PATH
+
+# LOGGING
+ENV TMP_DIR_LOGGING_PROFILES=/temp_logging_profiles
+# copy prefined logging profiles to temporary directory
+# in the entry point script the logging profiles will be copied to the correct location
+COPY ${LOGGING_PROFILES_PATH} ${TMP_DIR_LOGGING_PROFILES}
 
 # cleanup
 RUN apk del curl && \

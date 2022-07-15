@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# copy the predefined logging profiles to the GeoServer data directory
+DIR_LOGGING_PROFILES=${GEOSERVER_DATA_DIR}logs
+mkdir -p ${DIR_LOGGING_PROFILES}
+mv ${TMP_DIR_LOGGING_PROFILES}/* ${DIR_LOGGING_PROFILES}
+
 ADDITIONAL_LIBS_DIR=/opt/additional_libs/
 
 # path to default extensions stored in image
@@ -33,6 +38,23 @@ fi
 if [ -d "$ADDITIONAL_LIBS_DIR" ]; then
     cp $ADDITIONAL_LIBS_DIR/*.jar $CATALINA_HOME/webapps/$APP_PATH_PREFIX"geoserver/WEB-INF/lib/"
 fi
+
+# logging level
+# inspired by Kartoza GeoServer Docker image
+# https://github.com/kartoza/docker-geoserver/blob/f40770a5bbb4f29dc0d107a05aafb5f0da09164a/scripts/functions.sh#L269-L276
+echo "Applying logging level and usage of standard out of logs"
+
+STD_OUT_LOGGING_VALUE=false
+if [ "${USE_STD_OUT_LOGGING}" == 1 ]; then
+  STD_OUT_LOGGING_VALUE=true
+fi
+
+echo "<logging>
+  <level>${GEOSERVER_LOG_LEVEL}_LOGGING.properties</level>
+  <stdOutLogging>${STD_OUT_LOGGING_VALUE}</stdOutLogging>
+</logging>" > "${GEOSERVER_DATA_DIR}"/logging.xml
+
+echo "Set log level to ${GEOSERVER_LOG_LEVEL}"
 
 # ENABLE CORS
 if [ "$USE_CORS" == 1 ]; then
