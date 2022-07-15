@@ -42,7 +42,9 @@ if [ "$USE_CORS" == 1 ]; then
 fi
 
 # set credentials
-/bin/sh /opt/update_credentials.sh
+if [ "$UPDATE_CREDENTIALS" == 1 ]; then
+  /bin/sh /opt/update_credentials.sh
+fi
 
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run
