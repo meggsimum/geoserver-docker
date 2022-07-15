@@ -23,6 +23,8 @@ you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed 
   - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x) Default is `admin`
   - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x) Default is `geoserver`
   - `UPDATE_CREDENTIALS` (0/1) If the credentials shall be updated on startup. Default is `0`
+  - `USE_STD_OUT_LOGGING` (0/1) If logs should be written to standard out. Default is `1`
+  - `GEOSERVER_LOG_LEVEL` See detailed description in section below. Default is `PRODUCTION`
 
 For detailed information check the sections below.
 
@@ -101,24 +103,17 @@ Setting `UPDATE_CREDENTIALS` to `0` does not update the credentials on startup. 
 docker run -e UPDATE_CREDENTIALS=0 -v $(pwd)/geoserver_data:/opt/geoserver_data -p 8080:8080 meggsimum/geoserver:latest
 ```
 
-## Set Log Level and Standard Out Logging
+## Log Level
 
 The environment variable `GEOSERVER_LOG_LEVEL` defines the log level of GeoServer. All predefined log levels of GeoServer are available. Default is `PRODUCTION`.
 
 ```shell
-docker run -e GEOSERVER_LOG_LEVEL=PRODUCTION -p 18080:8080 meggsimum/geoserver:2.21.0
+docker run -e GEOSERVER_LOG_LEVEL=PRODUCTION -p 8080:8080 meggsimum/geoserver:2.21.0
 ```
 
 It is possible to use custom logging profiles by adding them to the `logs` directory within the GeoServer data directory. The filename must match the pattern `PETER_LOGGING.xml`. This profile would then be activated by setting the environment variable `GEOSERVER_LOG_LEVEL=PETER`.
 
-The environment variable `USE_STD_OUT_LOGGING` defines if logging should be done to standard out.
-
-```shell
-# example how to deactivate logging to standard out
-docker run -e USE_STD_OUT_LOGGING=0 -p 18080:8080 meggsimum/geoserver:2.21.0
-```
-
-Note that starting from GeoServer version 2.21 the logging has been written completely new. If you update from older GeoServer versions there might be adaptations necessary. More information are available in the changelog of GeoServer: https://geoserver.org/announcements/2022/05/24/geoserver-2-21-0-released.html#log4j-2-upgrade
+Note that starting from GeoServer version 2.21 on the logging has been rewritten completely. If you update from older GeoServer versions there might be adaptations necessary. More information are available in the changelog of GeoServer: https://geoserver.org/announcements/2022/05/24/geoserver-2-21-0-released.html#log4j-2-upgrade
 
 ## Build this Image
 
