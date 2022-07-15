@@ -17,6 +17,8 @@ ENV EXTRA_JAVA_OPTS="-Xms256m -Xmx1g"
 ENV USE_VECTOR_TILES=0
 ENV USE_WPS=0
 ENV USE_CORS=0
+ENV USE_STD_OUT_LOGGING=1
+ENV GEOSERVER_LOG_LEVEL=PRODUCTION
 ENV UPDATE_CREDENTIALS=1
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
