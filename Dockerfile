@@ -35,6 +35,7 @@ RUN apk -U upgrade --update && \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --allow-untrusted \
     gdal
 
 # clenaup webapps
