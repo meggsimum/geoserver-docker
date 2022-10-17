@@ -104,39 +104,6 @@
    </filter>
 
    <filter>
-     <filter-name>Request Logging Filter</filter-name>
-     <filter-class>org.geoserver.filters.LoggingFilter</filter-class>
-     <init-param>
-         <!-- The 'enabled' parameter is a boolean value, "true" (case-insensitive) for true or
-              any other value for false.  If enabled, then the logging will be performed;
-              otherwise the logging filter will have no effect.  If not specified, this
-              parameter defaults to false.
-              -->
-         <param-name>enabled</param-name>
-         <param-value>false</param-value>
-     </init-param>
-     <init-param>
-         <!-- The 'log-request-headers' parameter is a boolean value, "true" (case-insensitive) for
-              true or any other value for false.  If enabled, then the logging will include the HTTP
-              headers of requests.  If not specified, this parameter defaults to false.
-              -->
-         <param-name>log-request-headers</param-name>
-         <param-value>false</param-value>
-     </init-param>
-     <init-param>
-     <!-- The 'log-request-bodies' parameter is a boolean value, "true" (case-insensitive) for
-          true or any other value for false.  If enabled, then the logging will include the body
-          of POST and PUT requests.  If not specified, this parameter defaults to false.
-          Note that this may noticeably degrade responsiveness of your geoserver since it will
-          not begin to process requests until the entire request body has been received by the
-          server.
-          -->
-     <param-name>log-request-bodies</param-name>
-     <param-value>false</param-value>
-     </init-param>
-   </filter>
-
-   <filter>
      <filter-name>Advanced Dispatch Filter</filter-name>
      <filter-class>org.geoserver.platform.AdvancedDispatchFilter</filter-class>
      <!--
@@ -167,48 +134,50 @@
      -->
    </filter>
 
-   <!-- Uncomment following filter to enable CORS
-   <filter>
-        <filter-name>cross-origin</filter-name>
-        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
-       <init-param>
-           <param-name>chainPreflight</param-name>
-           <param-value>false</param-value>
-       </init-param>
-       <init-param>
-           <param-name>allowedOrigins</param-name>
-           <param-value>*</param-value>
-       </init-param>
-       <init-param>
-           <param-name>allowedMethods</param-name>
-           <param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
-       </init-param>
-       <init-param>
-           <param-name>allowedHeaders</param-name>
-           <param-value>*</param-value>
-       </init-param>
+   <!-- Uncomment following filter to enable CORS in Jetty. Do not forget the second config block further down.
+    <filter>
+      <filter-name>cross-origin</filter-name>
+      <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+      <init-param>
+        <param-name>chainPreflight</param-name>
+        <param-value>false</param-value>
+      </init-param>
+      <init-param>
+        <param-name>allowedOrigins</param-name>
+        <param-value>*</param-value>
+      </init-param>
+      <init-param>
+        <param-name>allowedMethods</param-name>
+        <param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
+      </init-param>
+      <init-param>
+        <param-name>allowedHeaders</param-name>
+        <param-value>*</param-value>
+      </init-param>
     </filter>
     -->
 
+   <!-- Uncomment following filter to enable CORS in Tomcat. Do not forget the second config block further down.
+   -->
     <filter>
-      <filter-name>CorsFilter</filter-name>
+      <filter-name>cross-origin</filter-name>
       <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
       <init-param>
         <param-name>cors.allowed.origins</param-name>
         <param-value>*</param-value>
       </init-param>
+      <init-param>
+        <param-name>cors.allowed.methods</param-name>
+        <param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
+      </init-param>
+      <init-param>
+        <param-name>cors.allowed.headers</param-name>
+        <param-value>*</param-value>
+      </init-param>
     </filter>
-    <filter-mapping>
-      <filter-name>CorsFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <init-param>
-      <param-name>cors.allowed.methods</param-name>
-      <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
-    </init-param>
 
     <!--
-      THIS FILTER MUST BE THE FIRST ONE, otherwise we end up with ruined chars in the input from the GUI
+      THIS FILTER MAPPING MUST BE THE FIRST ONE, otherwise we end up with ruined chars in the input from the GUI
       See the "Note" in the Tomcat character encoding guide:
       http://wiki.apache.org/tomcat/FAQ/CharacterEncoding
     -->
@@ -218,11 +187,11 @@
     </filter-mapping>
 
    <!-- Uncomment following filter to enable CORS
+   -->
     <filter-mapping>
         <filter-name>cross-origin</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    -->
 
     <filter-mapping>
       <filter-name>FlushSafeFilter</filter-name>
@@ -241,11 +210,6 @@
 
     <filter-mapping>
       <filter-name>xFrameOptionsFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-      <filter-name>Request Logging Filter</filter-name>
       <url-pattern>/*</url-pattern>
     </filter-mapping>
 
