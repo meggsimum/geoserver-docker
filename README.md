@@ -12,17 +12,17 @@ By running
 docker run -p 8080:8080 meggsimum/geoserver:2.19.3
 ```
 
-you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed by http://localhost:8080/geoserver
+you'll get a cleaned standard GeoServer (Version 2.19.3), which can be accessed by <http://localhost:8080/geoserver>
 
 ### Supported ENV VARs
 
-  - `USE_CORS=1` (0/1) Default is `0`
-  - `USE_WPS=1` (0/1) Default is `0`
-  - `USE_VECTOR_TILES=1` (0/1) Default is `0`
-  - `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
-  - `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x) Default is `admin`
-  - `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x) Default is `geoserver`
-  - `UPDATE_CREDENTIALS` (0/1) If the credentials shall be updated on startup. Default is `0`
+- `USE_CORS=1` (0/1) Default is `0`
+- `USE_WPS=1` (0/1) Default is `0`
+- `USE_VECTOR_TILES=1` (0/1) Default is `0`
+- `APP_PATH_PREFIX="my#deploy#path#"` (any string compliant to [Tomcat context path naming](https://tomcat.apache.org/tomcat-8.0-doc/config/context.html) )
+- `GEOSERVER_ADMIN_USER` (String - supported since 2.19.x) Default is `admin`
+- `GEOSERVER_ADMIN_PASSWORD` (String - supported since 2.19.x) Default is `geoserver`
+- `UPDATE_CREDENTIALS` (0/1) If the credentials shall be updated on startup. Default is `0`
 
 For detailed information check the sections below.
 
@@ -54,13 +54,13 @@ you'll get a GeoServer with CORS enabled.
 
 This Docker Image comes with several extensions which are bundled in:
 
-  - WPS
-  - Vector Tiles
+- WPS
+- Vector Tiles
 
 These extensions can be activated by the following environment variables:
 
-  - `USE_WPS=1`
-  - `USE_VECTOR_TILES=1`
+- `USE_WPS=1`
+- `USE_VECTOR_TILES=1`
 
 By running
 
@@ -85,7 +85,7 @@ By running
 docker run -e APP_PATH_PREFIX="foo#bar#" -p 8080:8080 meggsimum/geoserver
 ```
 
-you'll get the GeoServer deployed at http://localhost:8080/foo/bar/geoserver/.
+you'll get the GeoServer deployed at <http://localhost:8080/foo/bar/geoserver/>.
 
 ## Change Admin Credentials
 
@@ -109,6 +109,7 @@ docker build -t {YOUR_TAG} .
 ```
 
 ## Credits
-This GeoServer Docker Image was heavily inspired by the one here: https://github.com/terrestris/docker-geoserver/ of the [terrestris](https://github.com/terrestris) organization. Thank you!
+
+This GeoServer Docker Image was heavily inspired by the one here: <https://github.com/terrestris/docker-geoserver/> of the [terrestris](https://github.com/terrestris) organization. Thank you!
 
 Also a big thank you to the fabulous [GeoServer project](http://geoserver.org) and its maintainers / contributors. GeoServer is excellent, you rock!
