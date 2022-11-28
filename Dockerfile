@@ -1,15 +1,17 @@
-FROM openjdk:8-jdk-alpine
+FROM alpine:3.17
 
 # Install Tomcat
 # inspired by https://github.com/terrestris/docker-tomcat/blob/master/Dockerfile
 
 # Environment variables
-ENV TOMCAT_MAJOR=8 \
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
+    TOMCAT_MAJOR=8 \
     TOMCAT_VERSION=8.5.81 \
     CATALINA_HOME=/opt/tomcat
 
 # init
 RUN apk -U upgrade --update && \
+    apk add openjdk8 && \
     apk add curl && \
     apk add ttf-dejavu
 
@@ -55,14 +57,10 @@ WORKDIR /tmp
 RUN apk -U upgrade --update && \
     apk add curl && \
     apk add openssl && \
-    apk add libressl2.7-libcrypto && \
+    apk add libressl && \
     apk add nss && \
     apk add zip && \
     apk add \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --allow-untrusted \
     gdal
 
 # clenaup webapps
