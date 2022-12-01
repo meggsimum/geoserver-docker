@@ -1,0 +1,22 @@
+name: Docker image tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+   perform-test:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag meggsimum/geoserver:latest
+      - name: Install program "wait-for-it"
+        run: sudo apt install wait-for-it
+      - name: Run GeoServer Docker image
+        run: docker run -p 8080:8080 -e USE_CORS=1 -d meggsimum/geoserver:latest
+      - name: Run Tests
+        run: wait-for-it "http://localhost:8080" -- bash tests/cors.sh
