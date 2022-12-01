@@ -13,7 +13,7 @@ echo "Status code is: ${STATUS_CODE}"
 if [ "${STATUS_CODE}" -eq 200 ]
 then
   echo "GeoServer UI exists"
-  echo ""
+  echo -e "\n"
 else
   echo "GeoServer UI cannot be found"
   exit 1
