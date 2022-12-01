@@ -12,7 +12,7 @@ LINES=$(curl --head -s 'http://localhost:8080/geoserver/ows?service=wfs&version=
 if [ "${LINES}" -eq 1 ]
 then
   echo "CORS Header exists";
-  echo
+  echo ""
 else
   echo "CORS Header is missing"
   exit 1
