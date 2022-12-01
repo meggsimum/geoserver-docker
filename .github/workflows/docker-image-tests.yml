@@ -19,4 +19,4 @@ jobs:
       - name: Run GeoServer Docker image
         run: docker run -p 8080:8080 -e USE_CORS=1 -d meggsimum/geoserver:latest
       - name: Run Tests
-        run: wait-for-it "http://localhost:8080" -- bash tests/cors.sh
+        run: wait-for-it "http://localhost:8080" -- tests/cors.sh && tests/ui.sh && tests/rest.sh
