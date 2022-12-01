@@ -13,6 +13,7 @@ echo "Status code is: ${STATUS_CODE}"
 if [ "${STATUS_CODE}" -eq 200 ]
 then
   echo "GeoServer REST API exists";
+  echo
 else
   echo "GeoServer RESZ API cannot be found"
   exit 1
