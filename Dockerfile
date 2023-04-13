@@ -79,21 +79,6 @@ WORKDIR /tmp
 COPY $GS_DATA_PATH $GEOSERVER_DATA_DIR
 COPY $ADDITIONAL_LIBS_PATH $GEOSERVER_LIB_DIR
 
-# install java advanced imaging
-RUN wget https://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64.tar.gz && \
-    wget https://download.java.net/media/jai-imageio/builds/release/1.1/jai_imageio-1_1-lib-linux-amd64.tar.gz && \
-    gunzip -c jai-1_1_3-lib-linux-amd64.tar.gz | tar xf - && \
-    gunzip -c jai_imageio-1_1-lib-linux-amd64.tar.gz | tar xf - && \
-    mv /tmp/jai-1_1_3/lib/*.jar $JAVA_HOME/jre/lib/ext/ && \
-    mv /tmp/jai-1_1_3/lib/*.so $JAVA_HOME/jre/lib/amd64/ && \
-    mv /tmp/jai_imageio-1_1/lib/*.jar $JAVA_HOME/jre/lib/ext/ && \
-    mv /tmp/jai_imageio-1_1/lib/*.so $JAVA_HOME/jre/lib/amd64/
-
-# uninstall JAI default installation from geoserver to avoid classpath conflicts
-# see http://docs.geoserver.org/latest/en/user/production/java.html#install-native-jai-and-imageio-extensions
-WORKDIR $GEOSERVER_LIB_DIR
-RUN rm jai_core-*jar jai_imageio-*.jar jai_codec-*.jar
-
 # install marlin renderer
 RUN curl -jkSL -o $CATALINA_HOME/lib/marlin.jar https://github.com/bourgesl/marlin-renderer/releases/download/v$MARLIN_TAG/marlin-$MARLIN_VERSION-Unsafe.jar && \
     curl -jkSL -o $CATALINA_HOME/lib/marlin-sun-java2d.jar https://github.com/bourgesl/marlin-renderer/releases/download/v$MARLIN_TAG/marlin-$MARLIN_VERSION-Unsafe-sun-java2d.jar
