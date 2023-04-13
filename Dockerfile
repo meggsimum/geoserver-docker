@@ -32,7 +32,7 @@ EXPOSE 8080
 
 # The GS_VERSION argument could be used like this to overwrite the default:
 # docker build --build-arg GS_VERSION=2.17.3 -t meggsimum/geoserver:2.17.3 .
-ARG GS_VERSION=2.22.2
+ARG GS_VERSION=2.23.0
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
 
