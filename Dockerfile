@@ -4,14 +4,14 @@ FROM alpine:3.17
 # inspired by https://github.com/terrestris/docker-tomcat/blob/master/Dockerfile
 
 # Environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk \
     TOMCAT_MAJOR=8 \
     TOMCAT_VERSION=8.5.81 \
     CATALINA_HOME=/opt/tomcat
 
 # init
 RUN apk -U upgrade --update && \
-    apk add openjdk8 && \
+    apk add openjdk11-jdk && \
     apk add curl && \
     apk add ttf-dejavu
 
@@ -49,7 +49,7 @@ ENV USE_CORS=0
 ENV UPDATE_CREDENTIALS=1
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
-ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/p:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
+ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/a:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
 
 WORKDIR /tmp
 
