@@ -4,14 +4,14 @@ FROM alpine:3.17
 # inspired by https://github.com/terrestris/docker-tomcat/blob/master/Dockerfile
 
 # Environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk \
     TOMCAT_MAJOR=8 \
     TOMCAT_VERSION=8.5.81 \
     CATALINA_HOME=/opt/tomcat
 
 # init
 RUN apk -U upgrade --update && \
-    apk add openjdk8 && \
+    apk add openjdk11-jdk && \
     apk add curl && \
     apk add ttf-dejavu
 
@@ -32,7 +32,7 @@ EXPOSE 8080
 
 # The GS_VERSION argument could be used like this to overwrite the default:
 # docker build --build-arg GS_VERSION=2.17.3 -t meggsimum/geoserver:2.17.3 .
-ARG GS_VERSION=2.22.2
+ARG GS_VERSION=2.23.0
 ARG GS_DATA_PATH=./geoserver_data/
 ARG ADDITIONAL_LIBS_PATH=./additional_libs/
 
@@ -49,7 +49,7 @@ ENV USE_CORS=0
 ENV UPDATE_CREDENTIALS=1
 
 # see http://docs.geoserver.org/stable/en/user/production/container.html
-ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/p:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
+ENV CATALINA_OPTS="\$EXTRA_JAVA_OPTS -Dfile.encoding=UTF-8 -D-XX:SoftRefLRUPolicyMSPerMB=36000 -Xbootclasspath/a:$CATALINA_HOME/lib/marlin.jar -Xbootclasspath/a:$CATALINA_HOME/lib/marlin-sun-java2d.jar -Dsun.java2d.renderer=org.marlin.pisces.PiscesRenderingEngine -Dorg.geotools.coverage.jaiext.enabled=true"
 
 WORKDIR /tmp
 
@@ -78,21 +78,6 @@ WORKDIR /tmp
 
 COPY $GS_DATA_PATH $GEOSERVER_DATA_DIR
 COPY $ADDITIONAL_LIBS_PATH $GEOSERVER_LIB_DIR
-
-# install java advanced imaging
-RUN wget https://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64.tar.gz && \
-    wget https://download.java.net/media/jai-imageio/builds/release/1.1/jai_imageio-1_1-lib-linux-amd64.tar.gz && \
-    gunzip -c jai-1_1_3-lib-linux-amd64.tar.gz | tar xf - && \
-    gunzip -c jai_imageio-1_1-lib-linux-amd64.tar.gz | tar xf - && \
-    mv /tmp/jai-1_1_3/lib/*.jar $JAVA_HOME/jre/lib/ext/ && \
-    mv /tmp/jai-1_1_3/lib/*.so $JAVA_HOME/jre/lib/amd64/ && \
-    mv /tmp/jai_imageio-1_1/lib/*.jar $JAVA_HOME/jre/lib/ext/ && \
-    mv /tmp/jai_imageio-1_1/lib/*.so $JAVA_HOME/jre/lib/amd64/
-
-# uninstall JAI default installation from geoserver to avoid classpath conflicts
-# see http://docs.geoserver.org/latest/en/user/production/java.html#install-native-jai-and-imageio-extensions
-WORKDIR $GEOSERVER_LIB_DIR
-RUN rm jai_core-*jar jai_imageio-*.jar jai_codec-*.jar
 
 # install marlin renderer
 RUN curl -jkSL -o $CATALINA_HOME/lib/marlin.jar https://github.com/bourgesl/marlin-renderer/releases/download/v$MARLIN_TAG/marlin-$MARLIN_VERSION-Unsafe.jar && \
